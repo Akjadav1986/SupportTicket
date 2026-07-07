@@ -1,0 +1,49 @@
+<div class="card">
+  <h2>Create Support Ticket</h2>
+
+  <form (ngSubmit)="submit()">
+    <div class="form-row">
+      <label>Title</label>
+      <input name="title" [(ngModel)]="request.title" placeholder="Example: Payment failed and invoice not generated" />
+    </div>
+
+    <div class="form-row">
+      <label>Description</label>
+      <textarea name="description" [(ngModel)]="request.description" placeholder="Describe customer issue"></textarea>
+    </div>
+
+    <div class="form-row">
+      <label>Customer Email</label>
+      <input name="customerEmail" [(ngModel)]="request.customerEmail" placeholder="customer@example.com" />
+    </div>
+
+    <div class="form-row">
+      <label>Product Name</label>
+      <input name="productName" [(ngModel)]="request.productName" placeholder="Optional" />
+    </div>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <button class="primary-btn" type="submit" [disabled]="isSaving">
+      {{ isSaving ? 'Classifying...' : 'Create & Classify' }}
+    </button>
+  </form>
+</div>
+
+<div class="card" *ngIf="createdTicket as ticket">
+  <h2>Classification Result</h2>
+  <p><strong>Ticket ID:</strong> {{ ticket.id }}</p>
+  <p><strong>Status:</strong> {{ ticket.status }}</p>
+
+  <ng-container *ngIf="ticket.classification as c">
+    <p><strong>Category:</strong> {{ c.category }}</p>
+    <p><strong>Priority:</strong> {{ c.priority }}</p>
+    <p><strong>Routed Team:</strong> {{ c.routedTeam }}</p>
+    <p><strong>Confidence:</strong> {{ c.confidence | percent:'1.0-0' }}</p>
+    <p><strong>Reason:</strong> {{ c.reason }}</p>
+    <p>
+      <strong>Tags:</strong>
+      <span class="badge" *ngFor="let tag of c.tags">{{ tag }}</span>
+    </p>
+  </ng-container>
+</div>

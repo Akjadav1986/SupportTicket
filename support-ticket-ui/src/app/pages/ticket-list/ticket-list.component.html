@@ -1,0 +1,47 @@
+<div class="card">
+  <h2>Support Tickets</h2>
+
+  <button class="secondary-btn" type="button" (click)="loadTickets()">Refresh</button>
+
+  <p *ngIf="isLoading">Loading tickets...</p>
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <table class="table" *ngIf="tickets.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Customer</th>
+        <th>Status</th>
+        <th>Classification</th>
+        <th>Team</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ticket of tickets">
+        <td>{{ ticket.id }}</td>
+        <td>
+          <strong>{{ ticket.title }}</strong><br />
+          <small>{{ ticket.description }}</small>
+        </td>
+        <td>{{ ticket.customerEmail }}</td>
+        <td>{{ ticket.status }}</td>
+        <td>
+          <ng-container *ngIf="ticket.classification as c; else noClassification">
+            <div><strong>{{ c.category }}</strong></div>
+            <div>Priority: {{ c.priority }}</div>
+            <div>Confidence: {{ c.confidence | percent:'1.0-0' }}</div>
+          </ng-container>
+          <ng-template #noClassification>Not classified</ng-template>
+        </td>
+        <td>{{ ticket.classification?.routedTeam || '-' }}</td>
+        <td>
+          <button class="secondary-btn" type="button" (click)="reclassify(ticket)">Reclassify</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!isLoading && tickets.length === 0">No tickets found.</p>
+</div>
