@@ -907,19 +907,7 @@ Team: Product Team
 
 ---
 
-## 21. Gujarati Workflow Summary
-
-આ project માં user Angular UI માં support ticket create કરે છે. Angular API ને request મોકલે છે. .NET 9 Web API પહેલા ticket ને SQL Server database માં save કરે છે. પછી API `ITicketClassificationAgent` service ને call કરે છે. Agent ticket ના title, description અને product name પરથી category, priority, routed team, confidence અને tags detect કરે છે. ત્યાર પછી classification result `TicketClassifications` table માં save થાય છે. છેલ્લે API Angular ને full response આપે છે અને Angular UI classification result display કરે છે.
-
-Main idea:
-
-```text
-Ticket Create → Save in DB → Agent Classify → Save Classification → Show Result in UI
-```
-
----
-
-## 22. Recommended Next Improvements
+## 21. Recommended Next Improvements
 
 Good next features for learning and real-world usage:
 
@@ -936,7 +924,7 @@ Good next features for learning and real-world usage:
 
 ---
 
-## 23. Quick Start Commands
+## 22. Quick Start Commands
 
 Backend:
 
